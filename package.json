@@ -1,0 +1,16 @@
+{
+  "name": "codesanook-fb-comments-reader",
+  "version": "1.0.0",
+  "description": "Read all comments of given post's permalink.",
+  "author": "Codesanook team",
+  "license": "MIT",
+  "scripts": {
+    "start": "node fb-comments-reader.js"
+  },
+  "devDependencies": {
+    "authenticator": "^1.1.5",
+    "minimist": "^1.2.0",
+    "puppeteer": "^1.19.0"
+  },
+  "dependencies": {}
+}
