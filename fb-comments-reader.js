@@ -6,16 +6,18 @@ const argv = require('minimist')(process.argv.slice(2));
 const authenticator = require('authenticator');
 const MY_DEVICE = devices['iPhone 6'];
 
-function error(arg) {
+const requiredError = (arg) => {
     console.log(`Error: ${arg} is required`);
     process.exit(1);
 }
+
 // args
-const user = argv.fbuser || process.env.FB_USER || error('user');
-console.log(`user ${user}`);
-const password = argv.fbpassword || process.env.FB_PASSWORD || error('password');
-const url = argv.url || process.env.URL || error('url');
-const twofakey = argv.fb2fakey || process.env.FB_2FA_KEY;
+const email = argv.fbEmail || process.env.FB_EMAIL || requiredError('email');
+console.log(`email ${email}`);
+const password = argv.fbPassword || process.env.FB_PASSWORD || requiredError('password');
+const url = argv.fbPostUrl || process.env.FB_POST_URL || requiredError('post URL');
+
+const twoFAKey = argv.fb2fa || process.env.FB_2FA;
 
 (async () => {
 
@@ -42,14 +44,14 @@ const twofakey = argv.fb2fakey || process.env.FB_2FA_KEY;
     if (await page.$('input[name=email]') !== null) {
         console.log('Login form detected. Logging in...');
 
-        const email = await page.$('input[name=email]');
-        await email.type(user);
+        const emailInput = await page.$('input[name=email]');
+        await emailInput.type(email);
 
-        const pass = await page.$('input[name=pass]');
-        await pass.type(password);
+        const passwordInput = await page.$('input[name=pass]');
+        await passwordInput.type(password);
 
-        const login = await page.$('button[name=login]');
-        await login.click();
+        const loginInput = await page.$('button[name=login]');
+        await loginInput.click();
 
         await page.waitForNavigation({
             waitUntil: 'load'
@@ -63,13 +65,13 @@ const twofakey = argv.fb2fakey || process.env.FB_2FA_KEY;
         const input2FA = await page.$('input#approvals_code');
         if (input2FA) {
             console.log('2FA form detected. Generating TOTP...');
-            if (!twofakey) {
+            if (!twoFAKey) {
                 return Promise.reject('Error: 2FA code is required');
             }
 
-            //await input2FA.click();
+            // TODO handle 2FA with authenticator.generateToken
             //authenticator.generateToken(twofakey)
-            await input2FA.type(twofakey);
+            await input2FA.type(twoFAKey);
             await page.click('button[type=submit]');
             await page.waitForNavigation({
                 waitUntil: 'load'

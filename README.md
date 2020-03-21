@@ -7,26 +7,26 @@ Read all comments of given post's permalink.
 
 ## Authentication
 You can either pass your facebook credentials as environment variable:
-- `FB_USER` for storing email
+- `FB_EMAIL` for storing email
 - `FB_PASSWORD` for storing password
-- `FB_2FA_KEY` for storing 2FA if you use it. (optional)
+- `FB_2FA` for storing 2FA if you use it. (optional)
 
 ## CLI Arguments:
 ```
-    --url (required) This takes precedence over the env variable URL, it is Facebook post's permalink.
-    --fbuser         This takes precedence over the env variable FB_USER
-    --fbpassword     This takes precedence over the env variable FB_PASSWORD
-    --fb2fakey       This takes precedence over the env variable FB_2FA_KEY (optional)
+    --fbPostUrl (required) This takes precedence over the env variable FB_POST_URL, it is Facebook post's permalink.
+    --fbEmail         This takes precedence over the env variable FB_EMAIL
+    --fbPassword     This takes precedence over the env variable FB_PASSWORD
+    --fb2fa       This takes precedence over the env variable FB_2FA (optional)
 ```
 
 ## Examples
 ```
 > yarn install
 
-> $env:FB_USER = "space-ant@codesanook.com"
+> $env:FB_EMAIL = "space-ant@codesanook.com"
 > $env:FB_PASSWORD = "1234567890"
-> $env:URL = "https://www.facebook.com/groups/ThaiPGAssociateSociety/permalink/xxxxx/"
-> $env:FB_2FA_KEY = "123456" # optional
+> $env:FB_POST_URL = "https://www.facebook.com/groups/ThaiPGAssociateSociety/permalink/xxxxx/"
+> $env:FB_2FA = "123456" # optional
 
 > yarn start
 ```
