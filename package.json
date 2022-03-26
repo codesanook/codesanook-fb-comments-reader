@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "authenticator": "^1.1.5",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.6",
     "puppeteer": "^1.19.0"
   },
   "dependencies": {}
